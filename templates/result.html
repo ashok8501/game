@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result 🔥</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background: black;
+            color: white;
+        }
+
+        .box {
+            margin-top: 100px;
+        }
+
+        .result {
+            font-size: 40px;
+            color: #ff4b2b;
+            margin-top: 20px;
+        }
+    </style>
+
+    <script>
+        function showResult() {
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("result").style.display = "block";
+        }
+
+        setTimeout(showResult, 2000); // 2 sec delay
+    </script>
+</head>
+
+<body>
+
+<div class="box">
+    <h2 id="loading">⏳ Calculating your relationship...</h2>
+
+    <div id="result" style="display:none;">
+        <h1>{{ boy_name }} ❤️ {{ girl_name }}</h1>
+        <div class="result">🔥 {{ result }} 🔥</div>
+    </div>
+</div>
+
+</body>
+</html>
