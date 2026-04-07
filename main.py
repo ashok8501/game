@@ -4,7 +4,11 @@ from fastapi.templating import Jinja2Templates
 from db import get_connection
 
 app = FastAPI()
-templates = Jinja2Templates(directory="templates")
+
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
 
 # ✅ AUTO CREATE TABLE

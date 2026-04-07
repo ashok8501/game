@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Result</title>
+    <title>Result 🔥</title>
+
     <script>
         function showResult() {
             document.getElementById("loading").style.display = "none";
             document.getElementById("result").style.display = "block";
         }
+
         setTimeout(showResult, 2000);
     </script>
 </head>
 
 <body style="text-align:center; font-family:Arial; background:black; color:white;">
 
-<h2 id="loading">⏳ Calculating...</h2>
+    <h2 id="loading">⏳ Calculating your relationship...</h2>
 
-<div id="result" style="display:none;">
-    <h1>{{ boy_name }} ❤️ {{ girl_name }}</h1>
-    <h2>🔥 {{ result }} 🔥</h2>
-</div>
+    <div id="result" style="display:none;">
+        <h1>{{ boy_name }} ❤️ {{ girl_name }}</h1>
+        <h2 style="color:#ff4b2b;">🔥 {{ result }} 🔥</h2>
+    </div>
 
 </body>
 </html>
