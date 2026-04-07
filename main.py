@@ -7,6 +7,32 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 
+# ✅ AUTO CREATE TABLE
+@app.on_event("startup")
+def create_table():
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS flames_data (
+                id SERIAL PRIMARY KEY,
+                boy_name TEXT,
+                girl_name TEXT,
+                result TEXT
+            );
+        """)
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        print("✅ Table ready")
+
+    except Exception as e:
+        print("❌ DB ERROR:", e)
+
+
 # 🔥 FLAMES LOGIC
 def flames_result(name1, name2):
     name1 = name1.lower().replace(" ", "")
@@ -32,47 +58,55 @@ def flames_result(name1, name2):
     return flames[0]
 
 
-# 🏠 Home Page
+# 🏠 HOME PAGE
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
-# 📩 Submit Form
+# 📩 SUBMIT FORM
 @app.post("/submit", response_class=HTMLResponse)
 def submit(request: Request, boy_name: str = Form(...), girl_name: str = Form(...)):
-    result = flames_result(boy_name, girl_name)
+    try:
+        result = flames_result(boy_name, girl_name)
 
-    conn = get_connection()
-    cursor = conn.cursor()
+        conn = get_connection()
+        cursor = conn.cursor()
 
-    cursor.execute(
-        "INSERT INTO flames_data (boy_name, girl_name, result) VALUES (%s, %s, %s)",
-        (boy_name, girl_name, result)
-    )
+        cursor.execute(
+            "INSERT INTO flames_data (boy_name, girl_name, result) VALUES (%s, %s, %s)",
+            (boy_name, girl_name, result)
+        )
 
-    conn.commit()
-    cursor.close()
-    conn.close()
+        conn.commit()
+        cursor.close()
+        conn.close()
 
-    return templates.TemplateResponse("result.html", {
-        "request": request,
-        "boy_name": boy_name,
-        "girl_name": girl_name,
-        "result": result
-    })
+        return templates.TemplateResponse("result.html", {
+            "request": request,
+            "boy_name": boy_name,
+            "girl_name": girl_name,
+            "result": result
+        })
+
+    except Exception as e:
+        return {"error": str(e)}
 
 
-# 📊 View Data API
+# 📊 VIEW DATA
 @app.get("/data")
 def get_data():
-    conn = get_connection()
-    cursor = conn.cursor()
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM flames_data")
-    data = cursor.fetchall()
+        cursor.execute("SELECT * FROM flames_data")
+        data = cursor.fetchall()
 
-    cursor.close()
-    conn.close()
+        cursor.close()
+        conn.close()
 
-    return data
+        return data
+
+    except Exception as e:
+        return {"error": str(e)}
