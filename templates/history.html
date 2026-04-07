@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>History</title>
+</head>
+<body>
+    <h1>📜 Previous Results</h1>
+
+    <table border="1">
+        <tr>
+            <th>Boy</th>
+            <th>Girl</th>
+            <th>Result</th>
+        </tr>
+
+        {% for row in records %}
+        <tr>
+            <td>{{row[0]}}</td>
+            <td>{{row[1]}}</td>
+            <td>{{row[2]}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="/">Back</a>
+</body>
+</html>

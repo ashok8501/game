@@ -1,27 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>🔥 FLAMES Game 🔥</title>
+    <title>FLAMES Game</title>
 </head>
+<body>
+    <h1>🔥 FLAMES Calculator</h1>
 
-<body style="text-align:center; font-family:Arial; background:#ff4b2b; color:white;">
+    <form action="/calculate" method="post">
+        <input type="text" name="boy" placeholder="Boy Name" required><br><br>
+        <input type="text" name="girl" placeholder="Girl Name" required><br><br>
 
-    <h1>🔥 FLAMES Game 🔥</h1>
-    <p>Check your relationship 😏</p>
-
-    <form action="/submit" method="post" 
-          style="background:white; color:black; padding:20px; width:300px; margin:auto; border-radius:10px;">
-
-        <input type="text" name="boy_name" placeholder="Boy Name 👦" required><br><br>
-
-        <input type="text" name="girl_name" placeholder="Girl Name 👧" required><br><br>
-
-        <button type="submit" 
-                style="padding:10px; background:#ff4b2b; color:white; border:none; cursor:pointer;">
-            Check Result 💥
-        </button>
-
+        <button type="submit">Check</button>
     </form>
 
+    <br>
+    <a href="/history">View History</a>
 </body>
 </html>
