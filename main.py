@@ -4,13 +4,19 @@ from fastapi.templating import Jinja2Templates
 from db import get_connection
 from flames_logic import calculate_flames
 
+
+
+
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(
+        "index.html",
+        {"request": request}
+    )
 
 
 @app.post("/calculate", response_class=HTMLResponse)
